@@ -1,11 +1,10 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
-import sitemap from '@astrojs/sitemap';
 import starlight from '@astrojs/starlight';
 
 // https://astro.build/config
 export default defineConfig({
-    site: 'https://sheetyapp.com',
+    site: 'https://docs.sheetyapp.com',
     integrations: [
         starlight({
             title: 'Sheety Documentation',
@@ -26,8 +25,8 @@ export default defineConfig({
                 {
                     label: 'Getting Started',
                     items: [
-                        { label: 'Welcome', link: '/docs/' },
-                        { label: 'Quick Start', link: '/docs/getting-started' },
+                        { label: 'Welcome', link: '/' },
+                        { label: 'Quick Start', link: '/getting-started' },
                     ],
                 },
                 {
@@ -37,25 +36,25 @@ export default defineConfig({
                             label: 'Workbooks & Sheets',
                             collapsed: false,
                             items: [
-                                { label: 'Creating Your First Workbook', link: '/docs/tutorials/creating-your-first-workbook' },
-                                { label: 'Adding Columns to Your Sheet', link: '/docs/tutorials/adding-columns' },
-                                { label: 'Adding Data to Your Sheet', link: '/docs/tutorials/adding-data' },
-                                { label: 'Column Validation', link: '/docs/tutorials/column-validation' },
-                                { label: 'Creating Compute Columns', link: '/docs/tutorials/compute-columns' }
+                                { label: 'Creating Your First Workbook', link: '/tutorials/creating-your-first-workbook' },
+                                { label: 'Adding Columns to Your Sheet', link: '/tutorials/adding-columns' },
+                                { label: 'Adding Data to Your Sheet', link: '/tutorials/adding-data' },
+                                { label: 'Column Validation', link: '/tutorials/column-validation' },
+                                { label: 'Creating Compute Columns', link: '/tutorials/compute-columns' }
                             ]
                         },
                         { 
                             label: 'Queries & Filtering',
                             collapsed: false,
                             items: [
-                                { label: 'Creating Sheet Queries', link: '/docs/tutorials/creating-query' },
+                                { label: 'Creating Sheet Queries', link: '/tutorials/creating-query' },
                             ]
                         },
                         { 
                             label: 'Apps & Dashboards',
                             collapsed: false,
                             items: [
-                                { label: 'Creating Your First App', link: '/docs/tutorials/creating-app' },
+                                { label: 'Creating Your First App', link: '/tutorials/creating-app' },
                             ]
                         },
                     ],
@@ -69,25 +68,19 @@ export default defineConfig({
                     label: 'Guides',
                     collapsed: true,
                     items: [
-                        { label: 'Q-Expression Guide', link: '/docs/guides/q-expression' },
-                        { label: 'Column Management Page', link: '/docs/guides/column-management' },
+                        { label: 'Q-Expression Guide', link: '/guides/q-expression' },
+                        { label: 'Column Management Page', link: '/guides/column-management' },
                     ],
                 },
                 {
                     label: 'Reference',
                     collapsed: true,
                     items: [
-                        { label: 'Q Expressions', link: '/docs/q-expressions' },
-                        { label: 'Row Actions', link: '/docs/row-actions' },
+                        { label: 'Q Expressions', link: '/q-expressions' },
+                        { label: 'Row Actions', link: '/row-actions' },
                     ],
                 },
             ],
-        }),
-        sitemap({
-            filter: (page) => !page.includes('/404'),
-            changefreq: 'weekly',
-            priority: 0.7,
-            lastmod: new Date(),
         })
     ],
 });
