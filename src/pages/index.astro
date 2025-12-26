@@ -1,0 +1,241 @@
+---
+import SheetyLayout from '../layouts/SheetyLayout.astro';
+import Navigation from '../components/Navigation.astro';
+
+const structuredData = {
+	"@context": "https://schema.org",
+	"@graph": [
+		{
+			"@type": "Organization",
+			"@id": "https://sheetyapp.com/#organization",
+			"name": "Sheety App",
+			"url": "https://sheetyapp.com",
+			"logo": {
+				"@type": "ImageObject",
+				"url": "https://sheetyapp.com/logo-512.png",
+				"width": 512,
+				"height": 512
+			},
+			"sameAs": [
+				"https://www.facebook.com/quoc.nguyen.439926",
+				"https://x.com/quocnguyen_will",
+				"https://discord.gg/v23GJkDT"
+			],
+			"contactPoint": {
+				"@type": "ContactPoint",
+				"email": "admin@sheetyapp.com",
+				"contactType": "Customer Support"
+			}
+		},
+		{
+			"@type": "WebSite",
+			"@id": "https://sheetyapp.com/#website",
+			"url": "https://sheetyapp.com",
+			"name": "Sheety App",
+			"description": "Transform your data management with intuitive spreadsheet-like interfaces, real-time collaboration, and interactive dashboards.",
+			"publisher": {
+				"@id": "https://sheetyapp.com/#organization"
+			}
+		},
+		{
+			"@type": "SoftwareApplication",
+			"name": "Sheety App",
+			"applicationCategory": "BusinessApplication",
+			"operatingSystem": "Web",
+			"offers": {
+				"@type": "Offer",
+				"price": "0",
+				"priceCurrency": "USD"
+			},
+			"description": "Powerful data manipulation platform with dynamic applications, real-time collaboration, and advanced workflow automation."
+		}
+	]
+};
+---
+
+<SheetyLayout 
+	title="Sheety App - Get Sheet Done | Data Management Made Simple"
+	description="Transform your data management with Sheety App. Powerful spreadsheet-like interface with real-time collaboration, interactive dashboards, API integration, and advanced automation. Start free today!"
+	keywords="data management, spreadsheet alternative, real-time collaboration, data visualization, workflow automation, API integration, interactive dashboards, Sheety App"
+	ogType="website"
+>
+	<script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
+	<Navigation />
+	
+	<section id="hero-section" class="gradient-bg hero-section text-white flex flex-col items-center justify-center min-h-screen text-center p-6 relative">
+		<div class="max-w-2xl flex flex-col items-center">
+			<h1 class="drop-shadow-lg">You don't need a spreadsheet!</h1>
+			<h2 class="subtitle drop-shadow-md">You need Sheety App.</h2>
+		</div>
+	</section>
+
+	<div class="section-spacer"></div>
+
+	<section class="parallax-section">
+		<div class="parallax-bg" style="background-image: url('/datagrid.png');"></div>
+		<div class="content-wrapper">
+			<h2>Powerful Data Manipulation</h2>
+			<p>Store, organize, and transform your data with intuitive editing, smart formulas, and real-time collaboration. All the power of spreadsheets without the limitations.</p>
+		</div>
+	</section>
+
+	<div class="section-spacer"></div>
+
+	<section class="parallax-section">
+		<div class="parallax-bg" style="background-image: url('/dashboard.png');"></div>
+		<div class="content-wrapper">
+			<h2>Dynamic Data Applications</h2>
+			<p>Transform data into interactive apps with beautiful visualizations and custom dashboards—no coding needed.</p>
+		</div>
+	</section>
+
+	<div class="section-spacer"></div>
+
+	<section id="comparison" class="comparison-section">
+		<div class="content-wrapper-wide">
+			<h2><a href="#comparison" class="section-link">Beyond Traditional Spreadsheets</a></h2>
+			<p class="comparison-intro">While traditional spreadsheets are powerful, Sheety App takes data management to the next level. Here's how we compare:</p>
+			
+			<div class="comparison-table-wrapper">
+				<table class="comparison-table">
+					<thead>
+						<tr>
+							<th class="feature-column">Feature</th>
+							<th class="excel-column">Spreadsheets</th>
+							<th class="sheety-column">Sheety App</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td class="feature-name">Tabular data management</td>
+							<td class="has-feature">✓</td>
+							<td class="has-feature">✓</td>
+						</tr>
+						<tr>
+							<td class="feature-name">Formula calculations</td>
+							<td class="has-feature">✓</td>
+							<td class="has-feature">✓</td>
+						</tr>
+						<tr>
+							<td class="feature-name">Data visualization charts</td>
+							<td class="has-feature">✓</td>
+							<td class="has-feature">✓</td>
+						</tr>
+						<tr class="exclusive-row">
+							<td class="feature-name">Data change tracking</td>
+							<td class="has-feature">✓</td>
+							<td class="roadmap-feature" title="Coming Soon">◐</td>
+						</tr>
+						<tr>
+							<td class="feature-name">Data validation/ constraints</td>
+							<td class="no-feature">✗</td>
+							<td class="has-feature">✓</td>
+						</tr>
+						<tr>
+							<td class="feature-name">Permission control</td>
+							<td class="no-feature">✗</td>
+							<td class="has-feature">✓</td>
+						</tr>
+						<tr>
+							<td class="feature-name">Advance/ Interactive data apps</td>
+							<td class="no-feature">✗</td>
+							<td class="has-feature">✓</td>
+						</tr>
+						<tr class="exclusive-row">
+							<td class="feature-name">AI Assistant </td>
+							<td class="no-feature">✗</td>
+							<td class="has-feature">✓</td>
+						</tr>
+						<tr class="exclusive-row">
+							<td class="feature-name">API integration</td>
+							<td class="no-feature">✗</td>
+							<td class="has-feature">✓</td>
+						</tr>
+						<tr class="exclusive-row">
+							<td class="feature-name">Advanced workflow automation</td>
+							<td class="no-feature">✗</td>
+							<td class="has-feature">✓</td>
+						</tr>
+						<tr class="exclusive-row">
+							<td class="feature-name">Webhook integration</td>
+							<td class="no-feature">✗</td>
+							<td class="roadmap-feature" title="Coming Soon">◐</td>
+						</tr>
+						<tr class="exclusive-row">
+							<td class="feature-name">Mobile App</td>
+							<td class="no-feature">✗</td>
+							<td class="roadmap-feature" title="Coming Soon">◐</td>
+						</tr>
+						<tr class="exclusive-row">
+							<td class="feature-name">Search across workbook</td>
+							<td class="no-feature">✗</td>
+							<td class="roadmap-feature" title="Coming Soon">◐</td>
+						</tr>
+						<tr class="exclusive-row">
+							<td class="feature-name">AI-powered data insights</td>
+							<td class="no-feature">✗</td>
+							<td class="roadmap-feature" title="Coming Soon">◐</td>
+						</tr>
+						
+					</tbody>
+				</table>
+			</div>
+			<div class="legend">
+				<span class="legend-item"><span class="legend-icon available">✓</span> Available</span>
+				<span class="legend-item"><span class="legend-icon roadmap">◐</span> In Roadmap</span>
+				<span class="legend-item"><span class="legend-icon unavailable">✗</span> Not Available</span>
+			</div>
+		</div>
+	</section>
+
+	<section class="parallax-section" style="padding: 3rem 0 6rem 0;">
+		<div class="parallax-bg" style="background: linear-gradient(135deg, #2a4365, #3182ce, #38b2ac);"></div>
+		<div class="content-wrapper" style="max-width: 900px; width: 90%; margin-bottom: 3rem;">
+			<h2 style="margin-bottom: 1.5rem; text-align: center;">See Sheety App in Action</h2>
+			<div class="video-container" style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%; border-radius: 8px; box-shadow: 0 8px 32px rgba(0,0,0,0.3); background: #000; margin-top: 1rem;">
+				<iframe 
+					style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"
+					src="https://www.youtube.com/embed/FKLKnu1U5Ls?si=7gJ7NuTkwI1Q1IVK" 
+					title="YouTube video player" 
+					frameborder="0" 
+					allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+					referrerpolicy="strict-origin-when-cross-origin" 
+					allowfullscreen>
+				</iframe>
+			</div>
+		</div>
+		
+		<div class="text-center px-4 sm:px-6" style="position: relative; z-index: 2; margin-top: 3rem; margin-bottom: 3rem;">
+			<div class="max-w-3xl mx-auto">
+				<h3 class="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 sm:mb-4 text-white drop-shadow-lg leading-tight">Ready to Get Sheet Done?</h3>
+				<p class="text-base sm:text-lg md:text-xl mb-6 sm:mb-8 text-white drop-shadow-md px-2">Join thousands of users who've already transformed their data workflow</p>
+				<a href="https://go.sheetyapp.com" class="inline-flex flex-col items-center gap-3 sm:gap-4 bg-white font-bold px-6 sm:px-12 py-6 sm:py-8 rounded-3xl hover:bg-opacity-95 transition-all duration-300 hover:scale-105 shadow-2xl" style="border: 4px solid rgba(49, 130, 206, 0.3); max-width: 100%;">
+					<div class="flex flex-wrap justify-center items-center gap-2 lg:gap-3" style="max-width: 100%;">
+						<img src="/logo-256.png" alt="SheetyApp Logo" class="w-12 h-12 lg:w-16 lg:h-16 object-contain">
+						<span class="brand-name text-2xl lg:text-3xl xl:text-4xl whitespace-nowrap">Sheety App</span>
+					</div>
+					<span class="text-blue-600 text-base sm:text-lg font-semibold">Start Free Today →</span>
+				</a>
+			</div>
+		</div>
+	</section>
+
+	<script>
+		document.addEventListener('DOMContentLoaded', function() {
+			const heroSection = document.getElementById('hero-section');
+			const floatingCta = document.getElementById('floating-cta');
+			const ctaContainer = document.querySelector('.cta-container');
+
+			window.addEventListener('scroll', function() {
+				// Handle parallax effect
+				const parallaxSections = document.querySelectorAll('.parallax-section');
+				parallaxSections.forEach(section => {
+					const distance = window.pageYOffset - section.offsetTop;
+					const parallaxBg = section.querySelector('.parallax-bg');
+					parallaxBg.style.transform = `translateY(${distance * 0.5}px)`;
+				});
+
+			});
+		});
+	</script>
+</SheetyLayout>

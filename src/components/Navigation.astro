@@ -1,0 +1,51 @@
+---
+const currentPath = Astro.url.pathname;
+---
+
+<nav class="top-menu">
+	<!-- <div class="nav-brand">
+		<a href="/" class="brand-link">
+			<img src="/logo-64.png" alt="Sheety App Logo" class="brand-logo">
+			<span class="brand-name">Sheety App</span>
+		</a>
+	</div> -->
+	<div class="menu-links">
+		<a href="/" class={`nav-link text-lg ${currentPath === '/' ? 'active' : ''}`}>Home</a>
+		<a href="/articles" class={`nav-link text-lg ${currentPath.startsWith('/articles') ? 'active' : ''}`}>Articles</a>
+		<a href="/docs" class={`nav-link text-lg ${currentPath.startsWith('/docs') ? 'active' : ''}`}>Docs</a>
+		<a href="/terms" class={`nav-link text-lg ${currentPath === '/terms' || currentPath === '/terms/' ? 'active' : ''}`}>Terms</a>
+		<a href="/about" class={`nav-link text-lg ${currentPath === '/about' || currentPath === '/about/' ? 'active' : ''}`}>About Us</a>
+	</div>
+	<div class="mobile-menu-btn" id="mobileMenuBtn">
+		<span></span>
+		<span></span>
+		<span></span>
+	</div>
+	<div class="mobile-menu" id="mobileMenu">
+		<a href="/" class={currentPath === '/' ? 'active' : ''}>Home</a>
+		<a href="/articles" class={currentPath.startsWith('/articles') ? 'active' : ''}>Articles</a>
+		<a href="/docs" class={currentPath.startsWith('/docs') ? 'active' : ''}>Docs</a>
+		<a href="/terms" class={currentPath === '/terms' || currentPath === '/terms/' ? 'active' : ''}>Terms</a>
+		<a href="/about" class={currentPath === '/about' || currentPath === '/about/' ? 'active' : ''}>About Us</a>
+	</div>
+	<a href="https://go.sheetyapp.com" class="get-app-btn">Get Sheety App</a>
+</nav>
+
+<script>
+	document.addEventListener('DOMContentLoaded', function() {
+		const mobileMenu = document.getElementById('mobileMenu');
+		const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+		
+		// Toggle mobile menu when clicking the button
+		mobileMenuBtn?.addEventListener('click', function() {
+			mobileMenu?.classList.toggle('active');
+		});
+		
+		// Close mobile menu when clicking outside
+		document.addEventListener('click', function(event) {
+			if (!mobileMenuBtn?.contains(event.target as Node) && !mobileMenu?.contains(event.target as Node)) {
+				mobileMenu?.classList.remove('active');
+			}
+		});
+	});
+</script>

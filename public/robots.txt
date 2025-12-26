@@ -1,0 +1,11 @@
+# www.robotstxt.org/
+# Allow all search engines to crawl the site
+
+User-agent: *
+Allow: /
+
+# Disallow 404 page from being indexed
+Disallow: /404
+
+# Sitemap location
+Sitemap: https://sheetyapp.com/sitemap-index.xml

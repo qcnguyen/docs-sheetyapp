@@ -1,0 +1,59 @@
+---
+import type { Props } from '@astrojs/starlight/props';
+---
+
+<div class="docs-header">
+	<a href="/" class="back-button" title="Back to home">
+		<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+			<path d="M19 12H5M12 19l-7-7 7-7"/>
+		</svg>
+	</a>
+	<a href="/docs" class="site-title">
+		<img src="/logo-64.png" alt="Sheety App Logo" width="32" height="32" />
+		<span>Sheety App Documentation</span>
+	</a>
+</div>
+
+<style>
+	.docs-header {
+		display: flex;
+		align-items: center;
+		gap: 1rem;
+	}
+
+	.back-button {
+		display: flex;
+		align-items: center;
+		gap: 0.25rem;
+		color: var(--sl-color-white);
+		text-decoration: none;
+		font-size: 0.9rem;
+		padding: 0.25rem 0.5rem;
+		border-radius: 0.25rem;
+		transition: all 0.2s;
+	}
+	
+	.back-button:hover {
+		background-color: rgba(255, 255, 255, 0.1);
+		color: var(--sl-color-white);
+	}
+	
+	.site-title {
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+		color: var(--sl-color-white);
+		text-decoration: none;
+		font-weight: 600;
+	}
+	
+	.site-title:hover {
+		color: var(--sl-color-white);
+		opacity: 0.8;
+	}
+	
+	.site-title img {
+		width: 32px;
+		height: 32px;
+	}
+</style>

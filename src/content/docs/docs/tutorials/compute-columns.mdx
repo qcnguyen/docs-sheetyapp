@@ -1,0 +1,270 @@
+---
+title: Creating Compute Columns
+description: Learn how to add computed columns with formulas to automatically calculate values
+---
+
+Compute columns are powerful features in Sheety App that allow you to create calculated fields based on other column values. Instead of manually entering values, compute columns use Q-Expression formulas to automatically calculate results.
+
+## What You'll Learn
+
+- What compute columns are and when to use them
+- How to add compute columns using the context menu
+- Writing Q-Expression formulas
+- Understanding conditional calculations with the If function
+- Using column references in formulas
+
+## Prerequisites
+
+- A workbook with a sheet containing data columns (complete [Adding Columns to Your Sheet](/docs/tutorials/adding-columns) if you haven't already)
+- Basic understanding of your data structure
+
+## Understanding Compute Columns
+
+Compute columns are special columns that:
+
+- **Calculate values automatically** based on formulas you define
+- **Update dynamically** whenever the referenced column values change
+- Use **Q-Expression syntax** for writing formulas
+- Can reference other columns using the `@ColumnName` syntax
+- Support **conditional logic**, mathematical operations, and more
+
+### When to Use Compute Columns
+
+Use compute columns when you need to:
+- Calculate totals, averages, or other mathematical operations
+- Apply conditional logic based on other column values
+- Derive values from multiple columns
+- Apply business rules consistently across all rows
+
+## Example Scenario: Calculating Employee Salary
+
+In this tutorial, we'll create a "Salary" compute column for an Employees sheet that calculates the final salary based on:
+- The employee's **Base Salary**
+- The employee's **Department**
+- A multiplier that varies by department (1.1x for Engineering, 1.2x for others)
+
+## Step 1: Navigate to Your Sheet
+
+First, open the sheet where you want to add the compute column. For this example, we're using an **Employees** sheet with the following columns:
+
+- Full Name
+- Email
+- Department (a reference to another sheet)
+- Base Salary
+- Changed At
+
+![Employees Sheet](/assets/docs/tutorials/compute-columns/01-employees-sheet.png)
+
+## Step 2: Access the Add Compute Column Option
+
+To add a compute column:
+
+1. **Right-click** on the column header area or the breadcrumb menu next to the sheet name
+
+2. From the context menu, select **"Add Compute Column"**
+
+![Add Compute Column Menu](/assets/docs/tutorials/compute-columns/02-context-menu.png)
+
+:::tip[Alternative Method]
+You can also access this by clicking the **more options** button (⋮) next to the sheet name in the breadcrumb, then selecting "Columns" → "Add Compute Column"
+:::
+
+## Step 3: Fill in the Compute Column Details
+
+The "Add Compute Column" dialog will open with three main fields:
+
+![Add Compute Column Dialog](/assets/docs/tutorials/compute-columns/03-add-compute-column-dialog.png)
+
+### Field 1: Name
+
+Enter a descriptive name for your computed column.
+
+**Example:** `Salary`
+
+This name will appear as the column header in your sheet.
+
+### Field 2: Description
+
+Provide a clear description of what this column calculates. This helps other users understand the purpose of the computed column.
+
+**Example:** `Calculated salary based on department and base salary`
+
+### Field 3: Compute Q-Expression
+
+This is where you write the formula. The Q-Expression editor provides:
+- **Syntax highlighting** for better readability
+- **Autocomplete suggestions** for column references
+- **IntelliSense** to help you discover available columns
+
+## Step 4: Write Your Q-Expression Formula
+
+For our salary calculation example, we'll use the following formula:
+
+```
+If(@Department = t::css.Employees.Department:'1af443e7-d3ea-4f0c-b695-e0a198ab1b5d', 1.1, 1.2) * @BaseSalary
+```
+
+![Formula Entry](/assets/docs/tutorials/compute-columns/04-formula-entry.png)
+
+### Understanding the Formula
+
+Let's break down this formula:
+
+#### 1. The If Function
+```
+If(condition, value_if_true, value_if_false)
+```
+
+The `If` function evaluates a condition and returns different values based on whether the condition is true or false.
+
+#### 2. The Condition
+```
+@Department = t::css.Employees.Department:'1af443e7-d3ea-4f0c-b695-e0a198ab1b5d'
+```
+
+- `@Department` - References the Department column in the current row
+- `=` - Equality comparison operator
+- `t::css.Employees.Department:'1af443e7-d3ea-4f0c-b695-e0a198ab1b5d'` - References a specific department record by ID
+  - `t::css` - Refers to a type lookup in the current sheet system
+  - `Employees.Department` - The Department column path
+  - `'1af443e7-d3ea-4f0c-b695-e0a198ab1b5d'` - The unique ID of the Engineering department
+
+#### 3. The Multipliers
+```
+1.1, 1.2
+```
+
+- `1.1` - If the condition is **true** (employee is in Engineering), multiply by 1.1 (10% bonus)
+- `1.2` - If the condition is **false** (employee is in other departments), multiply by 1.2 (20% bonus)
+
+#### 4. The Final Calculation
+```
+* @BaseSalary
+```
+
+The result of the If function is multiplied by the value in the `@BaseSalary` column.
+
+### Column References
+
+When referencing columns in your formulas:
+
+- Use the `@` symbol followed by the column name: `@ColumnName`
+- Column names in formulas use **PascalCase** (remove spaces and capitalize each word)
+  - "Base Salary" becomes `@BaseSalary`
+  - "Full Name" becomes `@FullName`
+- The autocomplete feature will suggest available columns as you type
+
+## Step 5: Save the Compute Column
+
+Once you've entered all the details:
+
+1. Review your formula for accuracy
+2. Click the **"Save"** button at the bottom of the dialog
+
+The system will:
+- Validate your formula
+- Create the compute column
+- Calculate values for all existing rows
+- Display a success message: "Column saved successfully"
+
+## Step 6: Verify the Results
+
+After saving, the new "Salary" column will appear in your sheet with calculated values:
+
+![Results](/assets/docs/tutorials/compute-columns/07-results.png)
+
+In our example:
+- **John Smith** (Engineering, Base: 30000) → Salary: **36000** (30000 × 1.2)
+- **Sarah Johnson** (Engineering, Base: 35000) → Salary: **42000** (35000 × 1.2)
+- **Michael Brown** (Engineering, Base: 25000) → Salary: **30000** (25000 × 1.2)
+- **Emily Davis** (Legal, Base: 75000) → Salary: **82500** (75000 × 1.1)
+
+:::note[Formula Behavior]
+In this example, Engineering employees are multiplied by 1.2 (the false branch) while Legal employees get 1.1 (the true branch). Make sure to test your conditions to ensure they're working as expected!
+:::
+
+## Common Q-Expression Functions
+
+Here are some commonly used functions in compute columns:
+
+### Mathematical Operations
+- `+`, `-`, `*`, `/` - Basic arithmetic
+- `@Price * @Quantity` - Calculate total
+- `(@Subtotal + @Tax) - @Discount` - Complex calculations
+
+### Conditional Logic
+- `If(condition, true_value, false_value)` - Basic conditional
+- Nested If statements for multiple conditions
+
+### Text Operations
+- String concatenation and manipulation
+- Text formatting functions
+
+### Date Operations
+- Date calculations
+- Date comparisons
+
+## Best Practices
+
+1. **Use Descriptive Names** - Make your compute column names clear and meaningful
+2. **Document Your Formula** - Use the description field to explain complex calculations
+3. **Test Your Formula** - Verify the results with sample data before relying on them
+4. **Keep It Simple** - Break complex calculations into multiple compute columns if needed
+5. **Consider Performance** - Very complex formulas on large datasets may impact performance
+
+## Common Mistakes to Avoid
+
+1. **Incorrect Column References** - Always use `@ColumnName` syntax with proper casing
+2. **Syntax Errors** - Check parentheses and commas in your formulas
+3. **Wrong Data Types** - Ensure you're comparing compatible data types
+4. **Circular References** - A compute column cannot reference itself
+
+## Editing Compute Columns
+
+To modify an existing compute column:
+
+1. Right-click on the compute column header
+2. Select **"Edit Column"** from the context menu
+3. Update the formula or properties
+4. Click **"Save"** to apply the changes
+
+:::caution[Editing Formulas]
+When you edit a compute column formula, all values in that column will be recalculated automatically. Make sure your changes won't produce unexpected results.
+:::
+
+## Next Steps
+
+Now that you understand compute columns, you can:
+
+- Explore more complex Q-Expression formulas
+- Create computed columns for financial calculations
+- Build data validation rules using compute columns
+- Learn about [Column Validation](/docs/tutorials/column-validation) to ensure data quality
+
+## Troubleshooting
+
+### Formula Not Working
+
+If your formula isn't producing expected results:
+- Check column name references are correct (case-sensitive)
+- Verify all parentheses are properly closed
+- Ensure you're using the correct operators
+- Check that referenced columns exist
+
+### Autocomplete Not Showing
+
+If autocomplete isn't working:
+- Make sure you've typed the `@` symbol before the column name
+- Check that you're in the formula editor field
+- Verify the sheet has columns to reference
+
+### Values Not Updating
+
+If computed values aren't updating when source data changes:
+- Try refreshing the page
+- Check if the formula is still valid
+- Verify that the source columns still exist
+
+---
+
+**Need Help?** If you're stuck or have questions about compute columns, check out the [Q-Expression Documentation](/docs/reference/q-expressions) or reach out to support.

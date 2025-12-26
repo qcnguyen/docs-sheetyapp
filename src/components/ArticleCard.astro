@@ -1,0 +1,203 @@
+---
+import type { Article } from '../data/articles';
+
+interface Props {
+  article: Article;
+}
+
+const { article } = Astro.props;
+---
+
+<article class="article-card">
+  {article.image && (
+    <img src={article.image} alt={article.title} class="article-image" />
+  )}
+  <div class="article-content">
+    <div class="article-meta">
+      <span>{article.author}</span>
+      <span>•</span>
+      <time datetime={article.date}>
+        {new Date(article.date).toLocaleDateString('en-US', { 
+          year: 'numeric', 
+          month: 'long', 
+          day: 'numeric' 
+        })}
+      </time>
+    </div>
+    
+    <h2 class="article-title">
+      <a href={`/articles/${article.slug}`} class="article-link">
+        {article.title}
+      </a>
+    </h2>
+    
+    <p class="article-excerpt">
+      {article.excerpt}
+    </p>
+    
+    <div class="article-tags">
+      {article.tags.map(tag => (
+        <span class="tag">
+          {tag}
+        </span>
+      ))}
+    </div>
+    
+    <a 
+      href={`/articles/${article.slug}`} 
+      class="read-more-btn"
+    >
+      Read More →
+    </a>
+  </div>
+</article>
+
+<style>
+  :root {
+    --font-serif: 'Georgia', 'Times New Roman', serif;
+    --color-black: #000000;
+    --color-text: #1a1a1a;
+    --color-gray: #666666;
+  }
+
+  .article-card {
+    background: #ffffff;
+    border-radius: 0;
+    overflow: hidden;
+    border-top: 3px double #000000;
+    border-bottom: 1px solid #e2e8f0;
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    padding: 2rem 0;
+  }
+
+  .article-card:hover {
+    border-top-color: #3182ce;
+  }
+
+  .article-image {
+    width: 280px;
+    min-width: 280px;
+    height: auto;
+    object-fit: cover;
+    border: 1px solid #e2e8f0;
+  }
+
+  .article-content {
+    padding: 0 2rem;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+
+  @media (max-width: 768px) {
+    .article-card {
+      flex-direction: column;
+      padding: 1.5rem 0;
+    }
+
+    .article-image {
+      width: 100%;
+      height: 200px;
+      margin-bottom: 1.5rem;
+    }
+
+    .article-content {
+      padding: 0 1rem;
+    }
+  }
+
+  .article-meta {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.75rem;
+    color: var(--color-gray);
+    margin-bottom: 0.75rem;
+    font-family: var(--font-serif);
+    font-style: italic;
+  }
+
+  .article-meta span:first-child {
+    font-style: normal;
+    text-transform: uppercase;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    color: var(--color-black);
+  }
+
+  .article-meta time {
+    color: var(--color-gray);
+  }
+
+  .article-title {
+    font-family: var(--font-serif);
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 0.75rem;
+    line-height: 1.25;
+    letter-spacing: -0.01em;
+    color: var(--color-black);
+  }
+
+  .article-link {
+    color: var(--color-black);
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+
+  .article-link:hover {
+    color: #3182ce;
+  }
+
+  .article-excerpt {
+    font-family: var(--font-serif);
+    color: var(--color-text);
+    line-height: 1.7;
+    margin-bottom: 1rem;
+    flex: 1;
+    font-size: 1rem;
+  }
+
+  .article-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .tag {
+    padding: 0.25rem 0.75rem;
+    background: var(--color-black);
+    color: #ffffff;
+    font-size: 0.6875rem;
+    border-radius: 0;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  .read-more-btn {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.5rem 1rem;
+    background: var(--color-black);
+    color: white;
+    border-radius: 0;
+    text-decoration: none;
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    transition: all 0.3s ease;
+    align-self: flex-start;
+    border: 2px solid var(--color-black);
+  }
+
+  .read-more-btn:hover {
+    background: white;
+    color: var(--color-black);
+  }
+</style>

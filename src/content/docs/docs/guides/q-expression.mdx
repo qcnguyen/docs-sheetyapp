@@ -1,0 +1,850 @@
+---
+title: Q-Expression Guide
+description: Complete guide to understanding and using Q-Expression - SheetyApp's powerful formula language
+---
+
+import { Aside } from '@astrojs/starlight/components';
+
+Q-Expression is SheetyApp's formula language that combines the familiarity of Excel formulas with advanced data manipulation capabilities. Use Q-Expression to create computed columns, filter data, perform calculations, and build complex business logic.
+
+## What is Q-Expression?
+
+Q-Expression is designed to:
+- Create computed columns that update automatically based on other data
+- Filter data collections based on complex conditions
+- Transform data across related sheets
+- Perform calculations with Excel-like syntax but greater power
+- Implement business rules and validation logic
+
+<Aside type="tip">
+If you know Excel formulas, you'll feel right at home with Q-Expression - but with enhanced capabilities for working with relational data!
+</Aside>
+
+## Basic Syntax
+
+### Data Types
+
+Q-Expression supports several data types with specific syntax:
+
+- **Numbers**: `123`, `45.67`
+- **Strings**: `'Hello World'` (enclosed in single quotes)
+- **Booleans**: `TRUE` or `FALSE` (case insensitive)
+- **Dates**: `#2025-04-12#` (enclosed in # symbols)
+
+```
+// Number examples
+@quantity * 5
+@price + 10.50
+
+// String examples
+@firstName = 'John'
+@status != 'Completed'
+
+// Boolean examples
+@isActive = TRUE
+@verified = FALSE
+
+// Date examples
+@orderDate > #2025-01-01#
+@dueDate <= #2025-12-31#
+```
+
+### Operators
+
+Q-Expression provides a full set of operators for calculations and comparisons:
+
+**Arithmetic Operators:**
+- `+` Addition
+- `-` Subtraction
+- `*` Multiplication
+- `/` Division
+- `%` Modulo (remainder)
+- `^` Exponent (power)
+
+**Comparison Operators:**
+- `=` Equal to
+- `!=` Not equal to
+- `<` Less than
+- `>` Greater than
+- `<=` Less than or equal to
+- `>=` Greater than or equal to
+
+**Logical Operators:**
+- `AND` Logical AND
+- `OR` Logical OR
+
+```
+// Arithmetic
+@quantity * @unitPrice
+(@subtotal + @tax) * (1 - @discount)
+
+// Comparison
+@age >= 18
+@status = 'Active'
+
+// Logical
+@age >= 18 AND @verified = TRUE
+@priority = 'High' OR @urgent = TRUE
+```
+
+## References and Variables
+
+### Column References
+
+Reference column values using the `@` symbol followed by the column nameId:
+
+```
+@columnName
+```
+
+**Examples:**
+```
+@price
+@quantity
+@firstName
+@orderDate
+```
+
+<Aside type="caution">
+Column references are case-sensitive and must match the column's nameId exactly.
+</Aside>
+
+### Object Properties
+
+Access nested properties using dot notation:
+
+```
+@object.property.subProperty
+```
+
+**Examples:**
+```
+@user.name
+@order.items.price
+@customer.address.city
+```
+
+### Variables
+
+Reference variables using the `$` symbol:
+
+```
+$variableName
+```
+
+**Examples:**
+```
+$customerId
+$orderId
+$totalAmount
+```
+
+### Meta Properties
+
+Every row has built-in meta properties that provide system-level information:
+
+- **@__Id** - Unique identifier of the row (number type)
+- **@__UpdatedAtUtc** - Last update timestamp (UTC)
+- **@__CreatedAtUtc** - Creation timestamp (UTC)
+- **@__ChangedAtUtc** - Last data change timestamp (UTC)
+
+**Examples:**
+```
+// Filter rows created in the last 7 days
+@__CreatedAtUtc > #2025-12-19#
+
+// Show rows updated today
+@__UpdatedAtUtc >= #2025-12-26#
+
+// Reference a row's unique ID
+@__Id
+
+// Filter by changed date
+@__ChangedAtUtc > #2025-12-01#
+```
+
+<Aside>
+Meta properties are automatically maintained by the system and are read-only. They're indexed for efficient filtering.
+</Aside>
+
+## Built-in Q-Functions
+
+Q-Expression includes comprehensive built-in functions for various operations.
+
+### Mathematical Functions
+
+- **Abs(number)** - Absolute value
+- **Round(number, decimals)** - Round to specified decimal places
+- **Ceil(number)** - Round up to nearest integer
+- **Floor(number)** - Round down to nearest integer
+- **Truncate(number)** - Remove fractional part
+- **Max(number1, number2)** - Larger of two numbers
+- **Min(number1, number2)** - Smaller of two numbers
+- **Sqrt(number)** - Square root
+- **Pow(base, exponent)** - Raise to power
+- **Sign(number)** - Sign of number (1, 0, or -1)
+
+**Trigonometric Functions:**
+- **Sin(number)**, **Cos(number)**, **Tan(number)** - Basic trig functions (radians)
+- **Asin(number)**, **Acos(number)**, **Atan(number)** - Inverse trig functions
+- **Atan2(y, x)** - Two-argument arctangent
+- **Sinh(number)**, **Cosh(number)**, **Tanh(number)** - Hyperbolic functions
+
+**Logarithmic Functions:**
+- **Log(number)** - Natural logarithm
+- **Log10(number)** - Base-10 logarithm
+- **Exp(number)** - e raised to power
+
+**Examples:**
+```
+// Round price to 2 decimals
+Round(@price, 2)
+
+// Calculate total with max cap
+Min(@calculatedTotal, 1000)
+
+// Absolute difference
+Abs(@actual - @budget)
+
+// Power calculation
+Pow(@base, 2)
+```
+
+### Logical Functions
+
+- **If(condition, trueValue, falseValue)** - Conditional logic
+
+**Examples:**
+```
+// Simple condition
+If(@age >= 18, 'Adult', 'Minor')
+
+// Nested conditions
+If(@score >= 90, 'A',
+   If(@score >= 80, 'B',
+      If(@score >= 70, 'C', 'F')))
+
+// Calculation with condition
+If(@quantity > 100, @price * 0.9, @price)
+```
+
+### Type Functions
+
+- **IsBlank(value)** - Test if value is blank or empty
+- **ToString(value)** - Convert to string
+- **ToNumber(value)** - Convert to number
+- **ToBoolean(value)** - Convert to boolean
+- **ToDateTime(value)** - Convert to date/time
+
+**Examples:**
+```
+// Handle blank values
+If(IsBlank(@discount), 0, @discount)
+
+// Type conversion
+ToNumber(@quantityString) * @price
+
+// Check and convert
+If(IsBlank(@emailAddress), 'No email', ToString(@emailAddress))
+```
+
+## System Variables
+
+Q-Expression provides built-in system variables for contextual information.
+
+### Current User Information
+
+Access information about the currently logged-in user:
+
+- **$ActingMember.IdpSub** - Unique user identifier
+- **$ActingMember.Name** - User's display name
+- **$ActingMember.Email** - User's email address
+- **$ActingMember.Role** - User's role in the workbook (e.g., 'Admin', 'SheetWriter')
+
+**Examples:**
+```
+// Filter to show only user's records
+@ownerId = $ActingMember.IdpSub
+
+// Permission check
+$ActingMember.Role = 'Admin'
+
+// Audit trail
+'Last modified by: ' + $ActingMember.Name
+```
+
+## Custom Q-Functions
+
+Workbook creators can define custom q-functions using JavaScript to extend Q-Expression capabilities.
+
+### Q-Function Definition
+
+Q-functions are defined with:
+- **name** - The function name used in expressions
+- **jsScript** - JavaScript code that implements the function
+- **outputDataType** - Return type (string, number, boolean, date)
+- **argSpec** - Parameter definitions with types
+
+**Example Definition:**
+```json
+{
+  "name": "formatCurrency",
+  "jsScript": "return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(amount);",
+  "outputDataType": "string",
+  "argSpec": {
+    "amount": "number"
+  }
+}
+```
+
+### Using Custom Q-Functions
+
+Custom q-functions use the same syntax as built-in functions:
+
+```
+// Format a price as currency
+formatCurrency(@price)
+
+// Use in calculations
+formatCurrency(@quantity * @unitPrice)
+```
+
+<Aside type="note">
+Q-functions are sandboxed for security - they cannot access external systems, the DOM, or other sensitive resources.
+</Aside>
+
+## Lookup Expressions
+
+Lookup expressions enable powerful cross-sheet data relationships and calculations.
+
+### Lookup Syntax
+
+```
+[variable]:[sheetNameId]@[correlationSheetColumn]:[selectingSheetColumnField]
+```
+
+**Components:**
+
+| Component | Description | Example |
+|-----------|-------------|---------|
+| **variable** | Value to match (left side) | `@customerId`, `$orderId`, `$ActingMember.IdpSub` |
+| **sheetNameId** | Target sheet's nameId | `customers`, `products`, `orders` |
+| **correlationSheetColumn** | Column to match against (right side) | `id`, `customerId`, `sku` |
+| **selectingSheetColumnField** | Column to return | `name`, `price`, `email` |
+
+### Lookup Examples
+
+**Basic Customer Lookup:**
+```
+$customerId:customers@id:name
+```
+Returns the customer name where the id matches $customerId.
+
+**Product Price Lookup:**
+```
+@productSku:products@sku:unitPrice
+```
+Looks up the unit price for a product by its SKU.
+
+**User Department Lookup:**
+```
+$ActingMember.IdpSub:employees@userId:department
+```
+Gets the department of the current user.
+
+**Calculation with Lookup:**
+```
+@quantity * @productId:products@id:price
+```
+Calculates total by looking up the product price.
+
+### Multi-Level Lookups
+
+Chain lookups for complex relationships:
+
+```
+@orderId:orders@id:customerId:customers@id:name
+```
+This:
+1. Looks up customerId from orders sheet
+2. Uses that customerId to find the customer name
+
+### Conditional Lookups
+
+Use lookups in conditional logic:
+
+```
+If(@customerType = 'Premium',
+   @customerId:premiumPricing@id:discount,
+   @customerId:standardPricing@id:discount)
+```
+
+### Lookup Best Practices
+
+<Aside type="tip">
+**Performance Tips:**
+- Lookups execute per row, so consider performance with large datasets
+- Ensure correlation columns contain unique values
+- Index frequently used correlation columns for better performance
+</Aside>
+
+**Handle Missing Matches:**
+```
+// Provide default value when no match found
+If(IsBlank(@customerId:customers@id:name), 
+   'Unknown Customer', 
+   @customerId:customers@id:name)
+```
+
+**Keep It Readable:**
+```
+// Use descriptive column names
+@customerEmail:users@email:fullName
+
+// Add comments in documentation for complex lookups
+```
+
+## Custom Types
+
+Custom types allow working with specialized data beyond standard types.
+
+### Custom Type Syntax
+
+```
+t::typeName:'value'
+```
+
+### Custom Type Examples
+
+```
+// Currency codes
+t::currency:'USD'
+t::currency:'EUR'
+
+// Country codes
+t::countryCode:'US'
+t::countryCode:'CA'
+
+// Product SKUs
+t::sku:'PROD-12345'
+
+// Status enums
+t::orderStatus:'SHIPPED'
+t::orderStatus:'DELIVERED'
+```
+
+### Using Custom Types
+
+**Comparisons:**
+```
+@currencyCode = t::currency:'USD'
+@country != t::countryCode:'US'
+```
+
+**Conditional Logic:**
+```
+If(@country = t::countryCode:'US', 
+   'Domestic', 
+   'International')
+```
+
+**Lookups:**
+```
+$productSku:inventory@sku:stockLevel
+```
+
+<Aside>
+Custom types are defined at the workbook level and provide type safety and validation for specialized business data.
+</Aside>
+
+## Common Query Patterns
+
+### Filtering Data
+
+**Simple Equality:**
+```
+@status = 'Active'
+@category = 'Electronics'
+@verified = TRUE
+```
+
+**Combining Conditions:**
+```
+@price > 100 AND @category = 'Electronics'
+@age >= 18 AND @country = 'US'
+(@status = 'Pending' OR @status = 'In Progress') AND @priority = 'High'
+```
+
+**Date Range Filtering:**
+```
+@orderDate >= #2025-01-01# AND @orderDate <= #2025-12-31#
+@__CreatedAtUtc > #2025-12-01#
+```
+
+**Null/Blank Checks:**
+```
+IsBlank(@emailAddress) = FALSE
+@phoneNumber != ''
+```
+
+### Calculations
+
+**Simple Arithmetic:**
+```
+@quantity * @unitPrice
+@subtotal + @tax
+(@price - @cost) / @cost
+```
+
+**Complex Calculations:**
+```
+(@subtotal + @shipping) * (1 + @taxRate)
+Round(@price * @quantity * (1 - @discount), 2)
+```
+
+**Conditional Calculations:**
+```
+If(@quantity >= 100, @price * 0.9, @price)
+If(@membershipLevel = 'Gold', @total * 0.85, @total)
+```
+
+### Computed Columns
+
+**Full Name:**
+```
+@firstName + ' ' + @lastName
+```
+
+**Order Total:**
+```
+@quantity * @unitPrice * (1 - @discount)
+```
+
+**Age Category:**
+```
+If(@age < 18, 'Minor',
+   If(@age < 65, 'Adult', 'Senior'))
+```
+
+**Stock Status:**
+```
+If(@stockLevel = 0, 'Out of Stock',
+   If(@stockLevel < 10, 'Low Stock', 'In Stock'))
+```
+
+## Advanced Patterns
+
+### Nested Conditionals
+
+```
+If(@orderValue > 10000, 
+   'Platinum',
+   If(@orderValue > 5000,
+      'Gold',
+      If(@orderValue > 1000,
+         'Silver',
+         'Bronze')))
+```
+
+### Complex Business Logic
+
+```
+// Tiered discount calculation
+If(@customerType = 'VIP' AND @orderValue > 5000,
+   @orderValue * 0.20,
+   If(@customerType = 'VIP',
+      @orderValue * 0.15,
+      If(@orderValue > 5000,
+         @orderValue * 0.10,
+         @orderValue * 0.05)))
+```
+
+### Dynamic Status Calculation
+
+```
+If(@deliveryDate != '', 'Delivered',
+   If(@shipDate != '', 'Shipped',
+      If(@paymentConfirmed = TRUE, 'Processing',
+         'Pending Payment')))
+```
+
+### Aggregation with Lookups
+
+```
+// Total order value from multiple line items
+@qty1 * @sku1:products@sku:price + 
+@qty2 * @sku2:products@sku:price +
+@qty3 * @sku3:products@sku:price
+```
+
+## Real-World Scenarios
+
+### E-Commerce
+
+**Order Total with Tax:**
+```
+(@subtotal + @shipping) * (1 + @taxRate)
+```
+
+**Dynamic Shipping:**
+```
+If(@country = 'US',
+   If(@orderValue > 50, 0, 5.99),
+   If(@orderValue > 100, 9.99, 14.99))
+```
+
+**Order Status:**
+```
+If(@cancelledDate != '', 'Cancelled',
+   If(@deliveredDate != '', 'Delivered',
+      If(@shippedDate != '', 'Shipped',
+         If(@paymentDate != '', 'Processing', 'Pending'))))
+```
+
+### Inventory Management
+
+**Stock Alert:**
+```
+If(@stockLevel <= @reorderPoint, 'REORDER',
+   If(@stockLevel <= @reorderPoint * 1.5, 'LOW', 'OK'))
+```
+
+**Stock Value:**
+```
+@stockLevel * @productId:products@id:unitCost
+```
+
+**Days of Stock:**
+```
+Round(@stockLevel / @avgDailySales, 0)
+```
+
+### CRM
+
+**Customer Tier:**
+```
+If(@lifetimeValue > 10000, 'Platinum',
+   If(@lifetimeValue > 5000, 'Gold',
+      If(@lifetimeValue > 1000, 'Silver', 'Bronze')))
+```
+
+**Account Health:**
+```
+If(@lastOrderDate >= #2025-11-01#, 'Active',
+   If(@lastOrderDate >= #2025-08-01#, 'At Risk', 'Inactive'))
+```
+
+### Project Management
+
+**Project Status:**
+```
+If(@completionPct >= 90, 'On Track',
+   If(@dueDate < #2025-12-31# AND @completionPct < 75,
+      'At Risk',
+      If(@dueDate < #2025-12-26#, 'Overdue', 'In Progress')))
+```
+
+**Budget Variance:**
+```
+Round((@budgetAmount - @actualSpent) / @budgetAmount * 100, 1)
+```
+
+## Troubleshooting
+
+### Common Errors
+
+**Type Mismatch:**
+```
+// ❌ Wrong: comparing string to number
+@quantity > '10'
+
+// ✅ Correct: consistent types
+@quantity > 10
+```
+
+**Blank Value Handling:**
+```
+// ❌ Wrong: calculation fails on blank
+@price * @quantity
+
+// ✅ Correct: handle blanks
+If(IsBlank(@price) OR IsBlank(@quantity), 0, @price * @quantity)
+```
+
+**Lookup No Match:**
+```
+// ❌ Wrong: returns blank if not found
+$customerId:customers@id:name
+
+// ✅ Correct: provide default
+If(IsBlank($customerId:customers@id:name), 
+   'Unknown', 
+   $customerId:customers@id:name)
+```
+
+**Invalid Column Reference:**
+```
+// ❌ Wrong: spaces in column name
+@Order Value
+
+// ✅ Correct: use actual nameId
+@orderValue
+```
+
+**Date Comparison:**
+```
+// ❌ Wrong: string comparison
+@orderDate > '2025-12-01'
+
+// ✅ Correct: date literal
+@orderDate > #2025-12-01#
+```
+
+### Debugging Strategies
+
+1. **Build Incrementally** - Start simple and add complexity:
+   ```
+   // Step 1: Basic filter
+   @price > 100
+   
+   // Step 2: Add condition
+   @price > 100 AND @category = 'Electronics'
+   
+   // Step 3: Add more logic
+   (@price > 100 AND @category = 'Electronics') OR @featured = TRUE
+   ```
+
+2. **Create Debug Columns** - Add temporary columns to inspect values:
+   ```
+   // Debug: Show lookup result
+   @customerId:customers@id:name
+   
+   // Debug: Show calculation
+   @quantity * @unitPrice
+   ```
+
+3. **Use Type Conversions** - Verify and fix types:
+   ```
+   ToNumber(@stringValue) * @price
+   ToString(@numericValue) + ' items'
+   ```
+
+4. **Provide Defaults** - Make expressions robust:
+   ```
+   If(IsBlank(@discount), 0, @discount)
+   If(IsBlank(@notes), 'N/A', @notes)
+   ```
+
+## Best Practices
+
+### Expression Writing
+
+**Be Explicit:**
+```
+// ✅ Good: clear intent
+@isActive = TRUE AND @verified = TRUE
+
+// ❌ Avoid: implicit boolean
+@verified
+```
+
+**Use Meaningful Names:**
+```
+// ✅ Good: descriptive
+@customerEmailAddress
+
+// ❌ Less clear: abbreviated
+@cEmail
+```
+
+**Maintain Consistency:**
+```
+// ✅ Good: consistent case
+@isActive = TRUE
+@isVerified = TRUE
+
+// ❌ Avoid: mixed case
+@isActive = TRUE
+@isVerified = true
+```
+
+**Plan for Scale:**
+```
+// ✅ Good: efficient filtering
+@__CreatedAtUtc > #2025-12-01#
+
+// ⚠️ Consider: complex string operations on large datasets
+```
+
+### Security Considerations
+
+**User Permissions:**
+```
+// Check role for write permission
+$ActingMember.Role = 'Admin' OR $ActingMember.Role = 'Editor'
+```
+
+**Data Visibility:**
+```
+// Show only user's own records
+@ownerId = $ActingMember.IdpSub
+```
+
+**Input Validation:**
+```
+// Ensure positive quantities
+@quantity > 0 AND @quantity <= 10000
+
+// Validate date ranges
+@endDate >= @startDate
+```
+
+## Quick Reference
+
+### Data Types
+```
+123          // Number
+'text'       // String
+TRUE         // Boolean
+#2025-12-26# // Date
+t::type:'v'  // Custom type
+```
+
+### References
+```
+@columnName                // Column reference
+$variableName             // Variable reference
+@object.property          // Nested property
+@__CreatedAtUtc          // Meta property
+$ActingMember.Email      // System variable
+```
+
+### Operators
+```
++ - * / % ^              // Arithmetic
+= != < > <= >=           // Comparison
+AND OR                   // Logical
+```
+
+### Common Functions
+```
+If(condition, true, false)    // Conditional
+IsBlank(value)                // Null check
+Round(number, decimals)       // Rounding
+Max(a, b), Min(a, b)         // Min/Max
+ToString(v), ToNumber(v)     // Type conversion
+```
+
+### Lookup
+```
+variable:sheet@matchCol:returnCol
+```
+
+---
+
+<Aside type="tip">
+**Next Steps:**
+- Try creating [Compute Columns](/docs/tutorials/compute-columns) using Q-Expression
+- Learn about [Column Validation](/docs/tutorials/column-validation) with Q-Expression rules
+- Explore [Row Actions](/docs/guides/row-actions) that use Q-Expression for permissions
+</Aside>

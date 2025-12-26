@@ -1,0 +1,44 @@
+---
+import SheetyLayout from '../layouts/SheetyLayout.astro';
+import Navigation from '../components/Navigation.astro';
+---
+
+<SheetyLayout 
+        title="404 - Page Not Found | Sheety App" 
+        description="The page you're looking for doesn't exist. Return to Sheety App homepage or explore our data management solutions."
+        noindex={true}
+>
+        <Navigation />
+
+        <section class="bg-gray-50 flex flex-col items-center justify-center min-h-screen text-center p-6">
+                <div class="max-w-2xl flex flex-col items-center">
+                        <h1 class="text-7xl font-medium mb-4 text-gray-700">404</h1>
+                        <h2 class="text-2xl text-gray-600 mb-8">Page not found</h2>
+                        <p class="text-gray-500 mb-8">The page you're looking for doesn't exist or has been moved.</p>
+                        <div class="flex gap-4 flex-wrap justify-center">
+                                <a href="/" class="simple-button text-gray-700 hover:text-gray-900 px-6 py-2 rounded border border-gray-300 hover:border-gray-400 font-normal transition-colors">
+                                        Return home
+                                </a>
+                        </div>
+                </div>
+        </section>
+
+        <style>
+                .simple-button {
+                        display: inline-block;
+                        text-decoration: none;
+                        transition: all 0.2s ease;
+                }
+
+                h1 {
+                        font-size: clamp(3rem, 10vw, 7rem);
+                        line-height: 1;
+                }
+
+                @media (max-width: 640px) {
+                        .simple-button {
+                                width: 100%;
+                        }
+                }
+        </style>
+</SheetyLayout>
