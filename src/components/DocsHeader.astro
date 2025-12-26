@@ -20,11 +20,11 @@ import type { Props } from '@astrojs/starlight/props';
 	.logo-link {
 		display: flex;
 		align-items: center;
-		transition: opacity 0.2s;
+		transition: transform 0.3s ease;
 	}
 	
 	.logo-link:hover {
-		opacity: 0.8;
+		transform: scale(1.1) rotate(5deg);
 	}
 	
 	.logo-link img {
@@ -34,10 +34,13 @@ import type { Props } from '@astrojs/starlight/props';
 	}
 
 	.separator {
-		color: var(--sl-color-gray-3);
-		font-size: 1.25rem;
-		font-weight: 300;
+		color: var(--sl-color-accent-high);
+		font-size: 1.5rem;
+		font-weight: 200;
 		user-select: none;
+		opacity: 0.6;
+		text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+		margin: 0 0.25rem;
 	}
 
 	.docs-link {
