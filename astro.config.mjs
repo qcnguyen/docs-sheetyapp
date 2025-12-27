@@ -13,6 +13,7 @@ export default defineConfig({
                 src: './public/logo-64.png',
                 replacesTitle: false,
             },
+            favicon: '/logo-64.png',
             components: {
                 SiteTitle: './src/components/DocsHeader.astro',
             },
