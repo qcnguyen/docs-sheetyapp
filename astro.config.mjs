@@ -27,8 +27,7 @@ export default defineConfig({
                 {
                     label: 'Getting Started',
                     items: [
-                        { label: 'Welcome', link: '/' },
-                        { label: 'Quick Start', link: '/getting-started' },
+                        { label: 'Welcome', link: '/' }
                     ],
                 },
                 {

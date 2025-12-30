@@ -272,16 +272,6 @@ To modify existing validation rules:
 When you change validation rules, existing data is not automatically re-validated. Only new entries and future edits will be checked against the updated rules. You may need to manually review existing data if rules become stricter.
 :::
 
-## Best Practices for Validation
-
-1. **Be specific with error messages** - "Must be between 0 and 100" is better than "Invalid value"
-2. **Don't over-validate** - Too many rules can frustrate users
-3. **Validate at the right time** - Use Required for critical fields, optional validation for others
-4. **Test your rules** - Try entering invalid data to see if error messages are clear
-5. **Document expectations** - Use column descriptions to explain what's expected
-6. **Start simple** - Add basic validation first, then refine based on actual usage
-7. **Consider user workflow** - Don't block users unnecessarily
-
 ## Common Validation Scenarios
 
 ### Positive Numbers Only
@@ -309,15 +299,6 @@ Max Value: 50000
 Error: "Budget cannot exceed $50,000"
 ```
 
-## What's Next?
-
-Now that you understand column validation:
-
-- **[Adding Data to Your Sheet](/tutorials/adding-data)** - Start entering validated data
-- **[Column Management](/guides/column-management)** - Learn more about column features
-- **[Q Expressions Reference](/q-expressions)** - Create advanced validation with Q-Expressions
-- **[Import Data](/tutorials/importing-data)** - Understand how validation affects imports
-
 ## Summary
 
 In this tutorial, you learned how to:
@@ -326,15 +307,5 @@ In this tutorial, you learned how to:
 - ✅ Create a minimum value validation for numbers
 - ✅ Write clear, helpful error messages
 - ✅ Understand when validation is enforced
-- ✅ Apply validation best practices
 
 Your sheet now has data quality controls to ensure clean, consistent data!
-
-## Need Help?
-
-If you encounter any issues or have questions:
-
-- Check out our [FAQ](/faq)
-- Learn about [Q Expressions](/q-expressions) for advanced validation
-- Visit our [Community Forum](https://community.sheetyapp.com)
-- Contact support at [support@sheetyapp.com](mailto:support@sheetyapp.com)

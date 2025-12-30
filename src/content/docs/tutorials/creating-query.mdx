@@ -82,9 +82,9 @@ You can select multiple columns by clicking on each one. Selected columns will a
 The **Filter Q-Predicate** field allows you to filter which rows are included in the query results. This uses Sheety App's Q-Expression language.
 
 For example:
-- To filter only Engineering department: `[Department] = "Engineering"`
-- To filter salaries above 50000: `[Salary] > 50000`
-- To combine conditions: `[Department] = "Engineering" and [Salary] > 50000`
+- To filter only Engineering department: `@Department.Text = 'Engineering'`
+- To filter salaries above 50000: `@Salary > 50000`
+- To combine conditions: `@Department.Text = 'Engineering' and @Salary > 50000`
 
 For this tutorial, we'll leave the filter empty to include all rows.
 
@@ -104,10 +104,6 @@ In our example, the query returns all rows with Department and Salary columns, s
 - 3 employees in the Engineering department
 - 1 employee in the Legal department
 
-:::note[About Aggregation]
-The query we created returns individual rows. To aggregate data (like summing salaries per department), you'll use the aggregation features in widgets when creating apps. Queries provide the filtered data, while widgets apply aggregation functions like Sum, Average, Count, etc.
-:::
-
 ## Next Steps
 
 Now that you've created a query, you can:
@@ -115,38 +111,6 @@ Now that you've created a query, you can:
 1. **Use it in an App**: Queries are required for adding widgets to apps. See [Creating Your First App](/tutorials/creating-app) to learn how to use queries in widgets.
 2. **Create More Complex Queries**: Add filter expressions to narrow down your data
 3. **Experiment with Different Column Combinations**: Select different columns for different purposes
-
-## Query Best Practices
-
-:::tip[Best Practices]
-- **Descriptive Names**: Give your queries clear, descriptive names that indicate what data they return
-- **Select Only Needed Columns**: Only include columns you'll actually use to improve performance
-- **Use Filters Wisely**: Filter data in queries rather than loading all data and filtering in widgets
-- **Test Your Queries**: Always view the query results to verify they return expected data
-:::
-
-## Troubleshooting
-
-### No Sheets Available
-
-**Problem**: When trying to create a query, no sheets appear in the menu.
-
-**Solution**: You need to create at least one sheet in your workbook first. Go to the Sheets section and create a sheet before creating queries.
-
-### Empty Query Results
-
-**Problem**: Query returns no rows (0 total rows).
-
-**Solution**: Check that:
-- Your sheet has data rows
-- Your filter predicate (if used) isn't too restrictive
-- Column names in filters match the actual column names exactly
-
-### Query Not Appearing in Widget
-
-**Problem**: After creating a query, it doesn't appear when configuring a widget.
-
-**Solution**: Make sure you've saved the query successfully. Refresh the app edit page if needed.
 
 ## Summary
 

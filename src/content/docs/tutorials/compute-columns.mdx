@@ -183,88 +183,13 @@ In our example:
 In this example, Engineering employees are multiplied by 1.2 (the false branch) while Legal employees get 1.1 (the true branch). Make sure to test your conditions to ensure they're working as expected!
 :::
 
-## Common Q-Expression Functions
+## Learn More About Q-Expression
 
-Here are some commonly used functions in compute columns:
+This tutorial covered the basics of writing Q-Expression formulas for compute columns. For comprehensive information about Q-Expression syntax, functions, operators, and advanced patterns, refer to the [Q-Expression Guide](/guides/q-expression).
 
-### Mathematical Operations
-- `+`, `-`, `*`, `/` - Basic arithmetic
-- `@Price * @Quantity` - Calculate total
-- `(@Subtotal + @Tax) - @Discount` - Complex calculations
-
-### Conditional Logic
-- `If(condition, true_value, false_value)` - Basic conditional
-- Nested If statements for multiple conditions
-
-### Text Operations
-- String concatenation and manipulation
-- Text formatting functions
-
-### Date Operations
-- Date calculations
-- Date comparisons
-
-## Best Practices
-
-1. **Use Descriptive Names** - Make your compute column names clear and meaningful
-2. **Document Your Formula** - Use the description field to explain complex calculations
-3. **Test Your Formula** - Verify the results with sample data before relying on them
-4. **Keep It Simple** - Break complex calculations into multiple compute columns if needed
-5. **Consider Performance** - Very complex formulas on large datasets may impact performance
-
-## Common Mistakes to Avoid
-
-1. **Incorrect Column References** - Always use `@ColumnName` syntax with proper casing
-2. **Syntax Errors** - Check parentheses and commas in your formulas
-3. **Wrong Data Types** - Ensure you're comparing compatible data types
-4. **Circular References** - A compute column cannot reference itself
-
-## Editing Compute Columns
-
-To modify an existing compute column:
-
-1. Right-click on the compute column header
-2. Select **"Edit Column"** from the context menu
-3. Update the formula or properties
-4. Click **"Save"** to apply the changes
-
-:::caution[Editing Formulas]
-When you edit a compute column formula, all values in that column will be recalculated automatically. Make sure your changes won't produce unexpected results.
-:::
-
-## Next Steps
-
-Now that you understand compute columns, you can:
-
-- Explore more complex Q-Expression formulas
-- Create computed columns for financial calculations
-- Build data validation rules using compute columns
-- Learn about [Column Validation](/tutorials/column-validation) to ensure data quality
-
-## Troubleshooting
-
-### Formula Not Working
-
-If your formula isn't producing expected results:
-- Check column name references are correct (case-sensitive)
-- Verify all parentheses are properly closed
-- Ensure you're using the correct operators
-- Check that referenced columns exist
-
-### Autocomplete Not Showing
-
-If autocomplete isn't working:
-- Make sure you've typed the `@` symbol before the column name
-- Check that you're in the formula editor field
-- Verify the sheet has columns to reference
-
-### Values Not Updating
-
-If computed values aren't updating when source data changes:
-- Try refreshing the page
-- Check if the formula is still valid
-- Verify that the source columns still exist
-
----
-
-**Need Help?** If you're stuck or have questions about compute columns, check out the [Q-Expression Documentation](/reference/q-expressions) or reach out to support.
+The guide includes:
+- Complete syntax reference and data types
+- Built-in functions (mathematical, logical, type conversions)
+- Lookup expressions for cross-sheet relationships
+- System variables and meta properties
+- Real-world examples and troubleshooting tips
