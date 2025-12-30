@@ -78,10 +78,12 @@ Each widget type allows you to:
 ## Step 4: Widget Configuration
 
 :::note[Prerequisites for Widgets]
-To add widgets to your app, you need to have created a **query** on your sheet first. Queries specify what data the widget should display. If you haven't created a query yet, follow the [Creating Sheet Queries](/tutorials/creating-query) tutorial first.
+Most widgets in your app require a **query** to be created on your sheet first. Queries specify what data the widget should display and allow you to filter, transform, and aggregate your data. If you haven't created a query yet, follow the [Creating Sheet Queries](/tutorials/creating-query) tutorial first.
+
+Note: Some widgets, like the Field Display Panel, may not require a query and can work directly with your sheet data.
 :::
 
-Widgets in Sheety App are powered by queries, not directly by sheets. This allows you to:
+Most widgets in Sheety App are powered by queries, not directly by sheets. This allows you to:
 - Filter and transform data before displaying it
 - Select specific columns to show
 - Apply aggregations (sum, average, count, etc.)
@@ -204,15 +206,6 @@ Now that you've created your first app with a widget, you can:
 3. **Customize Widget Layout**: Arrange multiple widgets on your app dashboard
 4. **Create Multiple Apps**: Build specialized dashboards for different purposes
 5. **Explore Aggregation Functions**: Try Average, Count, Min, and Max functions
-
-:::tip[Best Practices]
-- Give your apps descriptive names that indicate their purpose
-- Create queries specifically for each widget's needs
-- Start with simple widgets and gradually add complexity
-- Group related data visualizations in the same app
-- Use different chart types to best represent your data
-- Name widgets clearly by using descriptive query names
-:::
 
 ## Summary
 
