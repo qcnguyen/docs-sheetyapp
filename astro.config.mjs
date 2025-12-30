@@ -77,8 +77,6 @@ export default defineConfig({
                     label: 'Reference',
                     collapsed: true,
                     items: [
-                        { label: 'Q Expressions', link: '/q-expressions' },
-                        { label: 'Row Actions', link: '/row-actions' },
                     ],
                 },
             ],

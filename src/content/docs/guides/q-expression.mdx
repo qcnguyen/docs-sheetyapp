@@ -220,9 +220,7 @@ Pow(@base, 2)
 If(@age >= 18, 'Adult', 'Minor')
 
 // Nested conditions
-If(@score >= 90, 'A',
-   If(@score >= 80, 'B',
-      If(@score >= 70, 'C', 'F')))
+If(@score >= 90, 'A', If(@score >= 80, 'B', If(@score >= 70, 'C', 'F')))
 
 // Calculation with condition
 If(@quantity > 100, @price * 0.9, @price)
@@ -374,9 +372,7 @@ This:
 Use lookups in conditional logic:
 
 ```
-If(@customerType = 'Premium',
-   @customerId:premiumPricing@id:discount,
-   @customerId:standardPricing@id:discount)
+If(@customerType = 'Premium', @customerId:premiumPricing@id:discount, @customerId:standardPricing@id:discount)
 ```
 
 ## Custom Types
@@ -418,9 +414,7 @@ t::orderStatus:'DELIVERED'
 
 **Conditional Logic:**
 ```
-If(@country = t::countryCode:'US', 
-   'Domestic', 
-   'International')
+If(@country = t::countryCode:'US', 'Domestic', 'International')
 ```
 
 **Lookups:**
@@ -497,14 +491,12 @@ If(@membershipLevel = 'Gold', @total * 0.85, @total)
 
 **Age Category:**
 ```
-If(@age < 18, 'Minor',
-   If(@age < 65, 'Adult', 'Senior'))
+If(@age < 18, 'Minor', If(@age < 65, 'Adult', 'Senior'))
 ```
 
 **Stock Status:**
 ```
-If(@stockLevel = 0, 'Out of Stock',
-   If(@stockLevel < 10, 'Low Stock', 'In Stock'))
+If(@stockLevel = 0, 'Out of Stock', If(@stockLevel < 10, 'Low Stock', 'In Stock'))
 ```
 
 ## Advanced Patterns
@@ -512,35 +504,20 @@ If(@stockLevel = 0, 'Out of Stock',
 ### Nested Conditionals
 
 ```
-If(@orderValue > 10000, 
-   'Platinum',
-   If(@orderValue > 5000,
-      'Gold',
-      If(@orderValue > 1000,
-         'Silver',
-         'Bronze')))
+If(@orderValue > 10000, 'Platinum', If(@orderValue > 5000, 'Gold', If(@orderValue > 1000, 'Silver', 'Bronze')))
 ```
 
 ### Complex Business Logic
 
 ```
 // Tiered discount calculation
-If(@customerType = 'VIP' AND @orderValue > 5000,
-   @orderValue * 0.20,
-   If(@customerType = 'VIP',
-      @orderValue * 0.15,
-      If(@orderValue > 5000,
-         @orderValue * 0.10,
-         @orderValue * 0.05)))
+If(@customerType = 'VIP' AND @orderValue > 5000, @orderValue * 0.20, If(@customerType = 'VIP', @orderValue * 0.15, If(@orderValue > 5000, @orderValue * 0.10, @orderValue * 0.05)))
 ```
 
 ### Dynamic Status Calculation
 
 ```
-If(@deliveryDate != '', 'Delivered',
-   If(@shipDate != '', 'Shipped',
-      If(@paymentConfirmed = TRUE, 'Processing',
-         'Pending Payment')))
+If(@deliveryDate != '', 'Delivered', If(@shipDate != '', 'Shipped', If(@paymentConfirmed = TRUE, 'Processing', 'Pending Payment')))
 ```
 
 ### Aggregation with Lookups
@@ -563,25 +540,19 @@ If(@deliveryDate != '', 'Delivered',
 
 **Dynamic Shipping:**
 ```
-If(@country = 'US',
-   If(@orderValue > 50, 0, 5.99),
-   If(@orderValue > 100, 9.99, 14.99))
+If(@country = 'US', If(@orderValue > 50, 0, 5.99), If(@orderValue > 100, 9.99, 14.99))
 ```
 
 **Order Status:**
 ```
-If(@cancelledDate != '', 'Cancelled',
-   If(@deliveredDate != '', 'Delivered',
-      If(@shippedDate != '', 'Shipped',
-         If(@paymentDate != '', 'Processing', 'Pending'))))
+If(@cancelledDate != '', 'Cancelled', If(@deliveredDate != '', 'Delivered', If(@shippedDate != '', 'Shipped', If(@paymentDate != '', 'Processing', 'Pending'))))
 ```
 
 ### Inventory Management
 
 **Stock Alert:**
 ```
-If(@stockLevel <= @reorderPoint, 'REORDER',
-   If(@stockLevel <= @reorderPoint * 1.5, 'LOW', 'OK'))
+If(@stockLevel <= @reorderPoint, 'REORDER', If(@stockLevel <= @reorderPoint * 1.5, 'LOW', 'OK'))
 ```
 
 **Stock Value:**
@@ -598,25 +569,19 @@ Round(@stockLevel / @avgDailySales, 0)
 
 **Customer Tier:**
 ```
-If(@lifetimeValue > 10000, 'Platinum',
-   If(@lifetimeValue > 5000, 'Gold',
-      If(@lifetimeValue > 1000, 'Silver', 'Bronze')))
+If(@lifetimeValue > 10000, 'Platinum', If(@lifetimeValue > 5000, 'Gold', If(@lifetimeValue > 1000, 'Silver', 'Bronze')))
 ```
 
 **Account Health:**
 ```
-If(@lastOrderDate >= #2025-11-01#, 'Active',
-   If(@lastOrderDate >= #2025-08-01#, 'At Risk', 'Inactive'))
+If(@lastOrderDate >= #2025-11-01#, 'Active', If(@lastOrderDate >= #2025-08-01#, 'At Risk', 'Inactive'))
 ```
 
 ### Project Management
 
 **Project Status:**
 ```
-If(@completionPct >= 90, 'On Track',
-   If(@dueDate < #2025-12-31# AND @completionPct < 75,
-      'At Risk',
-      If(@dueDate < #2025-12-26#, 'Overdue', 'In Progress')))
+If(@completionPct >= 90, 'On Track', If(@dueDate < #2025-12-31# AND @completionPct < 75, 'At Risk', If(@dueDate < #2025-12-26#, 'Overdue', 'In Progress')))
 ```
 
 **Budget Variance:**
@@ -652,9 +617,7 @@ If(IsBlank(@price) OR IsBlank(@quantity), 0, @price * @quantity)
 $customerId:customers@id:name
 
 // ✅ Correct: provide default
-If(IsBlank($customerId:customers@id:name), 
-   'Unknown', 
-   $customerId:customers@id:name)
+If(IsBlank($customerId:customers@id:name), 'Unknown', $customerId:customers@id:name)
 ```
 
 **Invalid Column Reference:**
@@ -814,12 +777,3 @@ ToString(v), ToNumber(v)     // Type conversion
 ```
 variable:sheet@matchCol:returnCol
 ```
-
----
-
-<Aside type="tip">
-**Next Steps:**
-- Try creating [Compute Columns](/tutorials/compute-columns) using Q-Expression
-- Learn about [Column Validation](/tutorials/column-validation) with Q-Expression rules
-- Explore [Row Actions](/guides/row-actions) that use Q-Expression for permissions
-</Aside>
